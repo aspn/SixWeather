@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import config from './config';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -13,7 +14,6 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    const DARK_SKY_KEY = '166e86bf5945e1c57eaf06dffaffaff5';
     navigator.geolocation.getCurrentPosition(
       (position) => {
         console.log('GETTING POSITION');
@@ -41,7 +41,7 @@ export default class App extends React.Component {
     async function getDarkSkyWeather(lat, long) {
       try {
         let response = await fetch(
-          `https://api.darksky.net/forecast/${DARK_SKY_KEY}/${lat},${long}?units=ca`
+          `https://api.darksky.net/forecast/${config.DARK_SKY_KEY}/${lat},${long}?units=ca`
         );
         let responseJson = await response.json();
         return responseJson;
