@@ -53,12 +53,15 @@ export default class App extends React.Component {
   }
 
   render() {
+    console.log(this.state.weatherData.currently);
     return (
       <View style={styles.container}>
         <Text style={styles.titleText}>6 weather</Text>
-        <Text style={styles.locationText}>{this.state.latitude}</Text>
-        <Text style={styles.locationText}>{this.state.longitude}</Text>
-        <Text style={styles.locationText}>{this.state.error}</Text>
+        <Text style={styles.text}>{this.state.latitude}</Text>
+        <Text style={styles.text}>{this.state.longitude}</Text>
+        <Text style={styles.text}>{this.state.error}</Text>
+        <Text style={styles.text}>{this.state.weatherData.timezone}</Text>
+        <Text style={styles.text}>{messages.quotes.god}</Text>
       </View>
     );
   }
@@ -78,7 +81,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.6,
     color: '#A1917C',
   },
-  locationText: {
+  text: {
     fontFamily: 'Futura',
     fontWeight: '100',
     fontSize: 20,
