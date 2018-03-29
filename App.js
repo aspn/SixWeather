@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import config from './config';
+import messages from './messages';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -9,6 +10,7 @@ export default class App extends React.Component {
     this.state = {
       latitude: null,
       longitude: null,
+      weatherData: {},
       error: null,
     };
   }
@@ -16,18 +18,17 @@ export default class App extends React.Component {
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log('GETTING POSITION');
-        console.log(position);
         const darkSkyWeather = getDarkSkyWeather(position.coords.latitude, position.coords.longitude);
         darkSkyWeather.then((success) => {
-          console.log('WEATHER SUCCESS: ', success);
+          console.log('WEATHER SUCCESS');
+          console.log(success);
+          this.setState({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            weatherData: success,
+            error: null,
+          });
         });
-        this.setState({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          error: null,
-        });
-
       },
       (error) => this.setState({
         error: error.message
@@ -55,9 +56,9 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.titleText}>6 weather</Text>
-        <Text style={styles.locationText}> {this.state.latitude} </Text>
-        <Text style={styles.locationText}> {this.state.longitude} </Text>
-        <Text style={styles.locationText}> {this.state.error} </Text>
+        <Text style={styles.locationText}>{this.state.latitude}</Text>
+        <Text style={styles.locationText}>{this.state.longitude}</Text>
+        <Text style={styles.locationText}>{this.state.error}</Text>
       </View>
     );
   }
